@@ -1,0 +1,37 @@
+ListNode dummy = new ListNode(0);
+dummy.next = head;
+ListNode prev = dummy;
+
+prev.next = curr.next;  // affects dummy.next too
+➡️ In Java:
+dummy and prev refer to the same ListNode object.
+So changing prev.next changes dummy.next as well — because both refer to the same object.
+Think of them as two names pointing to one object.
+
+
+
+class Solution {
+    public ListNode deleteDuplicates(ListNode head) {
+        ListNode dummy = new ListNode(0);
+        dummy.next = head;
+
+        ListNode curr = head;
+        ListNode prev = dummy;
+        boolean isDup =false;
+
+        while(curr!=null){
+            isDup = false;
+            while(curr.next!=null && (curr.val ==curr.next.val)){
+                isDup = true;
+                curr = curr.next;
+            }
+            if(isDup){
+                prev.next = curr.next;
+            }else{
+                prev = prev.next;
+            }          
+            curr = curr.next;
+        }
+        return dummy.next;
+    }
+}
